@@ -18,7 +18,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        let url = URL(fileURLWithPath: "bebe")
         let dataProvider = BundleDataProvider()
         let controllerViewModel = ControllerViewModel(dataProvider:dataProvider)
         let rootController = ViewController(viewModel: controllerViewModel, nibName: nil, bundle: nil)
