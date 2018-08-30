@@ -7,6 +7,9 @@
 //
 
 import UIKit
+import View
+import ViewModel
+import Model
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -15,7 +18,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
+        let url = URL(fileURLWithPath: "bebe")
+        let dataProvider = BundleDataProvider()
+        let controllerViewModel = ControllerViewModel(dataProvider:dataProvider)
+        let rootController = ViewController(viewModel: controllerViewModel, nibName: nil, bundle: nil)
+        window = UIWindow(frame: UIScreen.main.bounds)
+        window?.rootViewController = rootController
+        window?.makeKeyAndVisible()
         return true
     }
 
