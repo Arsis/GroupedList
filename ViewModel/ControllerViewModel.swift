@@ -29,13 +29,21 @@ public class ControllerViewModel {
     public func getGroups(completion: (Bool, Error?) -> Void) {
         if let resoucePath = Bundle.main.path(forResource: ResourceDetails.filename, ofType: ResourceDetails.fileType) {
             let url = URL(fileURLWithPath: resoucePath)
-            self.dataProvider.fetchData(url: url) { (dictionary: [String: Any]?, error: Error?) in
-                if let dictionary = dictionary, let groupsArray = dictionary["Data"] as? [[String: Any]] {
-                    self.groups = groupsArray.map({ (groupInfo: [String: Any]) -> GroupViewModel in
-                        let group = Group(dictionary: groupInfo)
-                        return GroupViewModel(group: group)
-                    })
-                    completion(true, nil)
+            self.dataProvider.fetchData(url: url) { (data: Data?, error: Error?) in
+                if let data = data {
+                    do {
+                        let parsedData = try JSONDecoder().decode([String: [Group]].self, from: data)
+                        self.groups = parsedData.map({ (_: String, value: [Group]) -> [GroupViewModel] in
+                            let array = value.map({ (group: Group) -> GroupViewModel in
+                                GroupViewModel(group: group)
+                            })
+                            return array
+                        }).reduce([], +)
+                        completion(true, nil)
+                    } catch {
+                        print(error)
+                        completion(false, error)
+                    }
                 } else if let error = error {
                     completion(false, error)
                 }
