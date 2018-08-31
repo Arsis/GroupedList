@@ -18,7 +18,7 @@ public class ControllerViewModel {
 
     private var groups: [GroupViewModel]? {
         didSet {
-            visibleGroups = groups?.filter({ $0.isHidden })
+            visibleGroups = groups?.filter({ !$0.isHidden })
         }
     }
 
