@@ -31,12 +31,8 @@ public class ControllerViewModel {
                 if let data = data {
                     do {
                         let parsedData = try JSONDecoder().decode([String: [Group]].self, from: data)
-                        self.groups = parsedData.map({ (_: String, value: [Group]) -> [GroupViewModel] in
-                            let array = value.map({ (group: Group) -> GroupViewModel in
-                                GroupViewModel(group: group)
-                            })
-                            return array
-                        }).reduce([], +)
+                        self.groups = parsedData.map({ (_, value: [Group]) -> [GroupViewModel] in
+                            value.map({ GroupViewModel(group: $0) }) }).reduce([], +)
                         completion(true, nil)
                     } catch {
                         print(error)
