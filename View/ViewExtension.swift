@@ -9,7 +9,7 @@
 import Foundation
 
 extension UIView {
-    public func rotate(duration:TimeInterval, clockwise:Bool) {
+    public func rotate(duration: TimeInterval, clockwise: Bool) {
         let animation = CABasicAnimation(keyPath: "transform.rotation.z")
         animation.toValue = clockwise ? Double.pi * 2 : -Double.pi * 2
         animation.duration = duration

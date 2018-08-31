@@ -13,26 +13,27 @@ public class GroupViewModel: ListItemPresentationParameters {
     public var name: String {
         return self.group.name ?? ""
     }
-    
+
     public var isHidden: Bool {
-        get {
-            return self.items.isEmpty
-        }
+        return self.items.isEmpty
     }
-    
+
     public var isIdEven: Bool {
-        return self.group.id%2 == 0
+        return self.group.groupId%2 == 0
     }
-    
+
     public var backgroundColor: UIColor? {
-        return UIColor(named: "GroupCellBackgroundColor")
+        if #available(iOS 11, *) {
+            return UIColor(named: "GroupCellBackgroundColor")
+        }
+        return nil
     }
-    
-    public let items:[ItemViewModel]
-    
+
+    public let items: [ItemViewModel]
+
     public var expanded = false
-    
-    public func toggle(inSection section:Int) -> (insert:[IndexPath]?, delete:[IndexPath]?) {
+
+    public func toggle(inSection section: Int) -> (insert: [IndexPath]?, delete: [IndexPath]?) {
         var itemsToToggle = [IndexPath]()
         for index in 0..<self.items.count {
             let indexPath = IndexPath(row: index, section: section)
@@ -41,36 +42,34 @@ public class GroupViewModel: ListItemPresentationParameters {
         if self.expanded {
             self.expanded = false
             return (nil, itemsToToggle)
-        }
-        else {
+        } else {
             self.expanded = true
             return (itemsToToggle, nil)
         }
     }
-    
+
     public var numberOfItems: Int {
         return self.expanded ? self.items.count : 0
     }
-    
-    private let group:Group
-    
-    init(group:Group) {
+
+    private let group: Group
+
+    init(group: Group) {
         self.group = group
-        self.items = group.items.map({ (item:Item) -> ItemViewModel in
-            let itemViewModel = ItemViewModel(item:item)
+        self.items = group.items.map({ (item: Item) -> ItemViewModel in
+            let itemViewModel = ItemViewModel(item: item)
             return itemViewModel
         })
     }
 }
 
-
 public struct ItemViewModel: ListItemPresentationParameters {
-    public var name:String? {
+    public var name: String? {
         return item.name
     }
-    
-    private let item:Item
-    public init(item:Item) {
+
+    private let item: Item
+    public init(item: Item) {
         self.item = item
     }
 }

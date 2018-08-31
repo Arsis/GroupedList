@@ -15,16 +15,16 @@ public struct Item {
 public struct Group {
     public let name: String?
     public let items: [Item]
-    public let id: Int
-    public init(dictionary:Dictionary<String,Any>) {
+    public let groupId: Int
+    public init(dictionary: [String: Any]) {
         self.name = dictionary["name"] as? String
-        self.id = dictionary["id"] as? Int ?? 0
+        self.groupId = dictionary["id"] as? Int ?? 0
         var items = [Item]()
-        if let itemsArray = dictionary["items"] as? Array<Any> {
+        if let itemsArray = dictionary["items"] as? [Any] {
             for item in itemsArray {
-                if let item = item as? Dictionary<String,Any>, let name = item["name"] as? String {
-                    let it = Item(name: name)
-                    items.append(it)
+                if let item = item as? [String: Any], let name = item["name"] as? String {
+                    let item = Item(name: name)
+                    items.append(item)
                 }
             }
         }
@@ -44,28 +44,25 @@ public enum GroupedListError: Error {
 }
 
 public protocol DataProvider {
-    func fetchData(url:URL, completion:(Dictionary<String, Any>?, Error?)->())
+    func fetchData(url: URL, completion: ([String: Any]?, Error?) -> Void)
 }
 
 public class BundleDataProvider: DataProvider {
-    public init(){}
-    public func fetchData(url:URL, completion:(Dictionary<String, Any>?, Error?)->()) {
+    public init() { }
+    public func fetchData(url: URL, completion: ([String: Any]?, Error?) -> Void) {
         let fileManager = FileManager.default
         if fileManager.fileExists(atPath: url.path) {
             if let data = fileManager.contents(atPath: url.path), data.isEmpty == false {
                 let dictionary = try? JSONSerialization.jsonObject(with: data, options: .init(rawValue:0))
                 if let dictionary = dictionary as? [String: Any] {
-                    completion(dictionary,nil)
-                }
-                else {
+                    completion(dictionary, nil)
+                } else {
                     completion(nil, GroupedListError.invalidDataFormat)
                 }
-            }
-            else {
+            } else {
                 completion(nil, GroupedListError.dataFileIsEmpty)
             }
-        }
-        else {
+        } else {
             completion(nil, GroupedListError.dataFileNotFound)
         }
     }

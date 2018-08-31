@@ -22,20 +22,21 @@ class ListItemView: UIView, UIGestureRecognizerDelegate {
     }
     private var longPressRecognizer: UILongPressGestureRecognizer?
     private var tapRecognizer: UILongPressGestureRecognizer?
-    public var onLongPressDetected: (()->())?
-    public var onTapDetected: (()->())?
+    public var onLongPressDetected: (() -> Void)?
+    public var onTapDetected: (() -> Void)?
     override public init(frame: CGRect) {
         self.label = UILabel(frame: .zero)
         self.label.numberOfLines = 1
         self.label.translatesAutoresizingMaskIntoConstraints = false
         super.init(frame: frame)
         self.addSubview(self.label)
-        self.label.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant:36.0).isActive = true
-        self.label.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant:-16.0).isActive = true
+        self.label.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 36.0).isActive = true
+        self.label.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -16.0).isActive = true
         self.label.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true
         self.label.setContentCompressionResistancePriority(.required, for: .vertical)
         self.label.setContentHuggingPriority(.required, for: .vertical)
-        self.longPressRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(longPressDetected(sender:)))
+        self.longPressRecognizer = UILongPressGestureRecognizer(target: self,
+                                                                action: #selector(longPressDetected(sender:)))
         self.longPressRecognizer?.delegate = self
         self.addGestureRecognizer(self.longPressRecognizer!)
         self.tapRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(tapDetected(sender:)))
@@ -43,30 +44,34 @@ class ListItemView: UIView, UIGestureRecognizerDelegate {
         self.tapRecognizer?.delegate = self
         self.addGestureRecognizer(self.tapRecognizer!)
     }
-    
+
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
-    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer,
+                           shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
         if otherGestureRecognizer is UIPanGestureRecognizer || otherGestureRecognizer == self.longPressRecognizer {
             return false
         }
         return true
     }
-    
+
     @objc private func longPressDetected(sender: Any) {
-        if let sender = sender as? UILongPressGestureRecognizer,  sender.state == .began, let onLongPressDetected = self.onLongPressDetected {
+        if let sender = sender as? UILongPressGestureRecognizer,
+            sender.state == .began,
+            let onLongPressDetected = self.onLongPressDetected {
             onLongPressDetected()
             self.highlight(false)
         }
     }
-    
+
     @objc private func tapDetected(sender: Any) {
         if let sender = sender as? UILongPressGestureRecognizer {
             switch sender.state {
             case .ended:
-                if let onTapDetected = self.onTapDetected, self.longPressRecognizer?.state != UIGestureRecognizer.State.recognized  {
+                if let onTapDetected = self.onTapDetected,
+                    self.longPressRecognizer?.state != UIGestureRecognizer.State.recognized {
                     onTapDetected()
                 }
                 self.highlight(false)
@@ -77,19 +82,18 @@ class ListItemView: UIView, UIGestureRecognizerDelegate {
             }
         }
     }
-    
+
     public func updateAppearance(_ parameters: ListItemPresentationParameters) {
         self.parameters = parameters
         self.label.textColor = parameters.textColor
         self.label.font = parameters.nameFont
         self.backgroundColor = parameters.backgroundColor
     }
-    
-    public func highlight(_ highlight:Bool) {
+
+    public func highlight(_ highlight: Bool) {
         if highlight {
             self.backgroundColor = self.parameters?.selectedBackgroundColor
-        }
-        else {
+        } else {
             self.backgroundColor = self.parameters?.backgroundColor
         }
     }
@@ -107,17 +111,17 @@ class GroupSectionView: UITableViewHeaderFooterView {
         self.listItemView.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
         self.listItemView.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
     }
-    
+
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
+
     func update(with viewModel: GroupViewModel) {
         self.listItemView.updateAppearance(viewModel)
         self.listItemView.name = viewModel.name
     }
-    
-    var onTapDetected:(()->())? {
+
+    var onTapDetected: (() -> Void)? {
         get {
             return nil
         }
@@ -125,8 +129,8 @@ class GroupSectionView: UITableViewHeaderFooterView {
             self.listItemView.onTapDetected = newValue
         }
     }
-    
-    var onLongPressDetected:(()->())? {
+
+    var onLongPressDetected: (() -> Void)? {
         get {
             return nil
         }
