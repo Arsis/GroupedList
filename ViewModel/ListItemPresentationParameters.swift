@@ -28,21 +28,21 @@ public extension ListItemPresentationParameters {
         if #available(iOS 11, *) {
             return UIColor(named: "ItemCellBackgroundColor")
         }
-        return nil
+        return #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
     }
 
     var selectedBackgroundColor: UIColor? {
         if #available(iOS 11, *) {
             return UIColor(named: "CellBackgroundSelectedColor")
         }
-        return nil
+        return #colorLiteral(red: 0.7294117647, green: 0.7294117647, blue: 0.7294117647, alpha: 1)
     }
 
     var textColor: UIColor? {
         if #available(iOS 11, *) {
             return UIColor(named: "TextColor")
         }
-        return nil
+        return #colorLiteral(red: 0.2, green: 0.2, blue: 0.2, alpha: 1)
     }
 
     var nameFont: UIFont? {

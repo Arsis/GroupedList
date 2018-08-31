@@ -10,7 +10,6 @@ import UIKit
 import ViewModel
 
 public class ViewController: UIViewController {
-
     let tableView: UITableView
     let viewModel: ControllerViewModel?
 

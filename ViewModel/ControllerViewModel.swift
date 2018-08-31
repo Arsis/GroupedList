@@ -18,9 +18,7 @@ public class ControllerViewModel {
 
     private var groups: [GroupViewModel]? {
         didSet {
-            visibleGroups = groups?.filter({ (groupViewModel: GroupViewModel) -> Bool in
-                return groupViewModel.isHidden == false
-            })
+            visibleGroups = groups?.filter({ $0.isHidden })
         }
     }
 
@@ -66,11 +64,10 @@ public class ControllerViewModel {
     }
 
     public func itemAtIndexPath(_ indexPath: IndexPath) -> ItemViewModel? {
-        if let groupsCount = visibleGroups?.count, indexPath.section < groupsCount {
-            if let group = visibleGroups?[indexPath.section] {
-                if indexPath.row < group.items.count {
-                    return group.items[indexPath.row]
-                }
+        if let groupsCount = visibleGroups?.count, indexPath.section < groupsCount,
+            let group = visibleGroups?[indexPath.section] {
+            if indexPath.row < group.items.count {
+                return group.items[indexPath.row]
             }
         }
         return nil

@@ -26,27 +26,12 @@ public class GroupViewModel: ListItemPresentationParameters {
         if #available(iOS 11, *) {
             return UIColor(named: "GroupCellBackgroundColor")
         }
-        return nil
+        return #colorLiteral(red: 0.9333333333, green: 0.9333333333, blue: 0.9333333333, alpha: 1)
     }
 
     public let items: [ItemViewModel]
 
     public var expanded = false
-
-    public func toggle(inSection section: Int) -> (insert: [IndexPath]?, delete: [IndexPath]?) {
-        var itemsToToggle = [IndexPath]()
-        for index in 0..<self.items.count {
-            let indexPath = IndexPath(row: index, section: section)
-            itemsToToggle.append(indexPath)
-        }
-        if self.expanded {
-            self.expanded = false
-            return (nil, itemsToToggle)
-        } else {
-            self.expanded = true
-            return (itemsToToggle, nil)
-        }
-    }
 
     public var numberOfItems: Int {
         return self.expanded ? self.items.count : 0
@@ -60,6 +45,21 @@ public class GroupViewModel: ListItemPresentationParameters {
             let itemViewModel = ItemViewModel(item: item)
             return itemViewModel
         })
+    }
+
+    public func toggle(inSection section: Int) -> (insert: [IndexPath]?, delete: [IndexPath]?) {
+        var itemsToToggle = [IndexPath]()
+        for index in self.items.indices {
+            let indexPath = IndexPath(row: index, section: section)
+            itemsToToggle.append(indexPath)
+        }
+        if self.expanded {
+            self.expanded = false
+            return (nil, itemsToToggle)
+        } else {
+            self.expanded = true
+            return (itemsToToggle, nil)
+        }
     }
 }
 

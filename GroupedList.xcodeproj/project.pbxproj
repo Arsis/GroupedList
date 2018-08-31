@@ -225,9 +225,9 @@
 				A3EC80472135AB9800338997 /* ViewExtension.swift */,
 				A3EC80492135ADD600338997 /* GroupSectionView.swift */,
 				A302F98321341F0400DFC171 /* ViewController.swift */,
+				A302F9DF21347B3200DFC171 /* ControllerTableViewCell.swift */,
 				A302F9C8213424DD00DFC171 /* View.h */,
 				A302F9C9213424DD00DFC171 /* Info.plist */,
-				A302F9DF21347B3200DFC171 /* ControllerTableViewCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
