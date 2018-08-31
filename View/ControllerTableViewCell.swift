@@ -28,8 +28,10 @@ class ControllerTableViewCell: UITableViewCell {
 
     override func setSelected(_ selected: Bool, animated: Bool) {
     }
+    
     override func setHighlighted(_ highlighted: Bool, animated: Bool) {
     }
+    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         self.listItemView = ListItemView()
         self.listItemView.translatesAutoresizingMaskIntoConstraints = false

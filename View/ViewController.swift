@@ -83,7 +83,7 @@ public class ViewController: UIViewController {
 }
 
 extension ViewController: UITableViewDataSource, UITableViewDelegate {
-    //MARK:- data source
+    ////MARK:- data source
     public func numberOfSections(in tableView: UITableView) -> Int {
         return self.viewModel?.numberOfSections ?? 0
     }
@@ -120,7 +120,7 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
         return nil
     }
 
-    //MARK:- delegate
+    //// MARK:- delegate
     public func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         if let itemViewModel = self.viewModel?.itemAtIndexPath(indexPath), let cell = cell as? ControllerTableViewCell {
             cell.onLongPressDetected = { [weak self] in
