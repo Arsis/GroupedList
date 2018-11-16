@@ -45,13 +45,6 @@ public class ViewController: UIViewController {
                 self?.tableView.reloadData()
             }
         }
-        
-        let tokenWillShowKeyboard = NotificationCenter.default.addObserver(forDescriptor: NotificationDescriptor(name: Notification.Name.UIKeyboardWillShow, convert:KeyboardStateChangePayload.init)) { payload in
-        }
-        
-        let tokenWillHideKeyboard = NotificationCenter.default.addObserver(forDescriptor: NotificationDescriptor(name:Notification.Name.UIKeyboardWillHide, convert:KeyboardStateChangePayload.init) { payload in
-            
-        }
     }
 
     override public func loadView() {

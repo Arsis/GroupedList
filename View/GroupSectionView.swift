@@ -71,7 +71,7 @@ class ListItemView: UIView, UIGestureRecognizerDelegate {
             switch sender.state {
             case .ended:
                 if let onTapDetected = self.onTapDetected,
-                    self.longPressRecognizer?.state != UIGestureRecognizerState.recognized {
+                    self.longPressRecognizer?.state != UIGestureRecognizer.State.recognized {
                     onTapDetected()
                 }
                 self.highlight(false)
