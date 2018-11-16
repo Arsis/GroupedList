@@ -26,7 +26,7 @@ public class ViewController: UIViewController {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
     }
 
-    required init?(coder aDecoder: NSCoder) {
+    public required init?(coder aDecoder: NSCoder) {
         self.viewModel = nil
         self.tableView = UITableView(frame: .zero, style: .plain)
         super.init(coder: aDecoder)
@@ -44,6 +44,13 @@ public class ViewController: UIViewController {
             } else {
                 self?.tableView.reloadData()
             }
+        }
+        
+        let tokenWillShowKeyboard = NotificationCenter.default.addObserver(forDescriptor: NotificationDescriptor(name: Notification.Name.UIKeyboardWillShow, convert:KeyboardStateChangePayload.init)) { payload in
+        }
+        
+        let tokenWillHideKeyboard = NotificationCenter.default.addObserver(forDescriptor: NotificationDescriptor(name:Notification.Name.UIKeyboardWillHide, convert:KeyboardStateChangePayload.init) { payload in
+            
         }
     }
 

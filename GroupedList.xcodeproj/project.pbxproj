@@ -34,6 +34,7 @@
 		A3EC80462135960100338997 /* data.json in Resources */ = {isa = PBXBuildFile; fileRef = A302F9DC21345BEE00DFC171 /* data.json */; };
 		A3EC80482135AB9800338997 /* ViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3EC80472135AB9800338997 /* ViewExtension.swift */; };
 		A3EC804A2135ADD600338997 /* GroupSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3EC80492135ADD600338997 /* GroupSectionView.swift */; };
+		BBDB937D21443948008A78F1 /* Notification.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBDB937C21443948008A78F1 /* Notification.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -115,6 +116,7 @@
 		A3A28DB521354D4C007D8AB4 /* Roboto-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Light.ttf"; sourceTree = "<group>"; };
 		A3EC80472135AB9800338997 /* ViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewExtension.swift; sourceTree = "<group>"; };
 		A3EC80492135ADD600338997 /* GroupSectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupSectionView.swift; sourceTree = "<group>"; };
+		BBDB937C21443948008A78F1 /* Notification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notification.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -222,6 +224,7 @@
 		A302F9C7213424DD00DFC171 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				BBDB937C21443948008A78F1 /* Notification.swift */,
 				A3EC80472135AB9800338997 /* ViewExtension.swift */,
 				A3EC80492135ADD600338997 /* GroupSectionView.swift */,
 				A302F98321341F0400DFC171 /* ViewController.swift */,
@@ -430,11 +433,7 @@
 			buildActionMask = 2147483647;
 			files = (
 			);
-			inputFileListPaths = (
-			);
 			inputPaths = (
-			);
-			outputFileListPaths = (
 			);
 			outputPaths = (
 			);
@@ -476,6 +475,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A3EC80482135AB9800338997 /* ViewExtension.swift in Sources */,
+				BBDB937D21443948008A78F1 /* Notification.swift in Sources */,
 				A302F9D2213424E800DFC171 /* ViewController.swift in Sources */,
 				A3EC804A2135ADD600338997 /* GroupSectionView.swift in Sources */,
 				A302F9E021347B3200DFC171 /* ControllerTableViewCell.swift in Sources */,

@@ -32,7 +32,7 @@ class ControllerTableViewCell: UITableViewCell {
     override func setHighlighted(_ highlighted: Bool, animated: Bool) {
     }
 
-    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+    override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         self.listItemView = ListItemView()
         self.listItemView.translatesAutoresizingMaskIntoConstraints = false
         super.init(style: style, reuseIdentifier: reuseIdentifier)
